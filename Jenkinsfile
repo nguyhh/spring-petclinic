@@ -10,8 +10,10 @@ def brokenCommit = 'null'
 pipeline{
     agent any  
         stages{
+
             stage('Setup'){
-                script{
+                steps{
+                     script{
                 if (!fileExists('Count.txt')) {
                   writeFile file: './Count.txt', text: "$count"
                 }
@@ -22,7 +24,11 @@ pipeline{
 
                 count = readFile('Count.txt').trim() as int
                 echo "$count"
-            }
+                }
+
+
+                }
+               
             }
             stage('Count Commit'){
                 when {
