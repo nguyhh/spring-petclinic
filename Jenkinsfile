@@ -2,7 +2,6 @@
 pipeline{
     agent any
     stages{
-
         stage('Build'){
             steps{
                 sh'./mvnw package'
@@ -28,7 +27,7 @@ pipeline{
                 branch 'master'
             }
             steps{
-                sh './mvnw deploy'-DaltDeploymentRepository=internal.repo::default::file:///home/leena/Documents/spring-petclinic'
+                sh './mvnw deploy -DaltDeploymentRepository=internal.repo::default::file:///home/leena/Documents/spring-petclinic'
             }
         }
     }
