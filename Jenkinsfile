@@ -3,7 +3,7 @@ def lastSuccessfulBuild = 'null'
 def lastBuild = 'null'
 def currentBuild = 'null'
 def buildSucceed = false
-def brokenCommit = 'null'
+def currentCommit = 'null'
 
 //Retrieve Commit hash
 // = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
@@ -27,7 +27,7 @@ pipeline{
                         echo "Count number is $count"
 
                         brokenCommit= sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-                        echo "Current commit is : $brokenCommit"
+                        echo "Current commit is : $currentCommit"
                  }
                 }
                
@@ -53,7 +53,7 @@ pipeline{
                         brokenCommit = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
 
                     }
-                    sh "git bisect start ${brokenCommit} ${lastSuccessfulBuild}"
+                    sh "git bisect start ${currentCommit} ${lastSuccessfulBuild}"
                     sh "git bisect run mvn clean test" 
                     sh "git bisect reset"
                 }
@@ -88,13 +88,9 @@ pipeline{
 
     post{
 
-        success{
-            echo 'Success build'
-
-        }
-        failure {
-            echo 'Failed build'
-
+        always{
+            archivedArtifacts artifacts: 'Count.txt', onlyIfSuccessful: true
+            archivedArtifacts artifacts: 'lastSuccessfulBuild.txt', onlyIfSuccessful: true
         }
     }
     
