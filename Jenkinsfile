@@ -9,8 +9,6 @@ def brokenCommit = 'null'
 // = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 pipeline{
     agent any
-    script{
-        if (env.BRANCH_NAME == 'master'){
         
 
         stages{
@@ -60,14 +58,6 @@ pipeline{
             }
             
         }
-
-
-
-
-        
-    }else{
-        echo 'Not a master branch'
-    }
 
 
     }
