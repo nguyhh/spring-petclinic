@@ -25,6 +25,9 @@ pipeline{
                         countRetrieved = readFile('Count.txt').trim() 
                         count = countRetrieved as int
                         echo "Count number is $count"
+
+                        brokenCommit= sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
+                        echo "Current commit is : $brokenCommit"
                  }
                 }
                
