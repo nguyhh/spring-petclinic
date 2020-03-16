@@ -82,10 +82,6 @@ pipeline{
             
         }
 
-
-
-    
-
     post{
 
         success{
