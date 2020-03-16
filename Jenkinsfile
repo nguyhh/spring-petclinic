@@ -8,17 +8,29 @@ def brokenCommit = 'null'
 //Retrieve Commit hash
 // = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 pipeline{
-    agent any
-        
-
+    agent any  
         stages{
+            stage('Setup'){
+                script{
+                if (!fileExists('Count.txt')) {
+                  writeFile file: './Count.txt', text: "$count"
+                }
+
+                if (!fileExists('lastSuccessfulBuild.txt')) {
+                  writeFile file: './lastSuccessfulBuild.txt', text: "$lastSuccessfulBuild"
+                }
+
+                count = readFile('Count.txt').trim() as int
+                echo "$count"
+            }
             stage('Count Commit'){
                 when {
                     expression{count<8}
                 }
                 steps{
                     script{
-                           count+=1
+                        echo "Increment count"
+                        count+=1
                     }
                  
                 }
