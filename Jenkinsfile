@@ -60,7 +60,7 @@ pipeline{
         }
 
 
-    }
+
     
 
     post{
@@ -75,6 +75,6 @@ pipeline{
         }
     }
     
+
+
 }
-
-
