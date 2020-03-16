@@ -89,8 +89,8 @@ pipeline{
     post{
 
         always{
-            archivedArtifacts artifacts: 'Count.txt', onlyIfSuccessful: true
-            archivedArtifacts artifacts: 'lastSuccessfulBuild.txt', onlyIfSuccessful: true
+            archiveArtifacts artifacts: 'Count.txt', onlyIfSuccessful: true
+            archiveArtifacts artifacts: 'lastSuccessfulBuild.txt', onlyIfSuccessful: true
         }
     }
     
