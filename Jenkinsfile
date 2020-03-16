@@ -14,16 +14,17 @@ pipeline{
             stage('Setup'){
                 steps{
                      script{
-                if (!fileExists('Count.txt')) {
-                  writeFile file: './Count.txt', text: "$count"
-                }
+                        if (!fileExists('Count.txt')) {
+                        writeFile file: './Count.txt', text: "$count"
+                        }
 
-                if (!fileExists('lastSuccessfulBuild.txt')) {
-                  writeFile file: './lastSuccessfulBuild.txt', text: "$lastSuccessfulBuild"
-                }
+                        if (!fileExists('lastSuccessfulBuild.txt')) {
+                        writeFile file: './lastSuccessfulBuild.txt', text: "$lastSuccessfulBuild"
+                        }
 
-                count = readFile('Count.txt').trim() as int
-                echo "$count"
+                        countRetrieved = readFile('Count.txt').trim() 
+                        count = countRetrieved as int
+                        echo "Count number is $count"
                  }
                 }
                
