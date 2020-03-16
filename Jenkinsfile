@@ -23,6 +23,7 @@ pipeline{
                 count = readFile('Count.txt').trim() as int
                 echo "$count"
             }
+            }
             stage('Count Commit'){
                 when {
                     expression{count<8}
