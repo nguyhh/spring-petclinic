@@ -17,7 +17,10 @@ pipeline{
                     expression{count<8}
                 }
                 steps{
-                    count+=1
+                    script{
+                           count+=1
+                    }
+                 
                 }
             }
             stage('Git Bisect'){
@@ -25,7 +28,10 @@ pipeline{
                     expression {count>=8 && buildSucceed==false}
                 }
                 steps{
-                    brokenCommit = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
+                    script{
+                        brokenCommit = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
+
+                    }
                     sh "git bisect start ${brokenCommit} ${lastSuccessfulBuild}"
                     sh "git bisect run mvn clean test" 
                     sh "git bisect reset"
