@@ -24,9 +24,7 @@ pipeline{
 
                 count = readFile('Count.txt').trim() as int
                 echo "$count"
-                }
-
-
+                 }
                 }
                
             }
